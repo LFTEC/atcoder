@@ -10,7 +10,7 @@ get_filename_component(PROJ_NAME ${SOURCE_DIR} NAME)
 
 foreach (CPP_FILE ${CPP_FILES})
 	get_filename_component(EXECUTABLE_NAME ${CPP_FILE} NAME_WE)
-	get_filename_component(CPP_NAME ${CPP_FILE} NAME_WE)
+	get_filename_component(CPP_NAME ${CPP_FILE} NAME)
 	add_executable ("${PROJ_NAME}_${EXECUTABLE_NAME}" "${CPP_NAME}")
 
 	if (CMAKE_VERSION VERSION_GREATER 3.12)
