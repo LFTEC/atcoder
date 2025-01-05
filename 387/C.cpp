@@ -1,38 +1,64 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+long long int_pow(long long a, long long t)
+{
+	long long ans = 1;
+	while (t--)
+	{
+		ans *= a;
+	}
+	return ans;
+}
+
+long long calc(long long d)
+{
+	if (d < 10) return 0;
+	vector<int> digits;
+	while (d)
+	{
+		digits.push_back(d % 10);
+		d /= 10;
+	}
+
+	reverse(digits.begin(), digits.end());
+
+	int n = digits.size();
+
+	long long ans = 0;
+	for (int i = 1; i <= n; i++)
+	{
+		if (i == n)
+		{
+			ans++;
+			break;
+		}
+
+		ans += min(digits[0], digits[i]) * int_pow(digits[0], n - i - 1);
+		if (digits[i] >= digits[0])
+			break;
+	}
+
+
+	for (int i = 2; i <= n; i++)
+	{
+		int m = i == n ? digits[0] - 1 : 9;
+
+		for (int j = 1; j <= m; j++)
+		{
+			ans += int_pow(j, (i - 1));
+		}
+	}
+
+	return ans;
+}
+
 int main()
 {
 	long long l, r;
 	cin >> l >> r;
 
-	int ls[18];
-	int ld = 0;
-	while(l > 10)
-	{
-		ls[ld] = l % 10;
-		l = l / 10;
-		ld++;
-	}
-
-	int rd = 0, rs[18];
-	while (r > 10)
-	{
-		rs[rd] = r % 10;
-		r = r / 10;
-		rd++;
-	}
-
-	int ans = 0;
-	for (int i = ld; i <= rd; i++)
-	{
-		for (int j = 1; j <= 9; j++)
-		{
-			int d = i - 1;
-			ans += pow(j, d);
-		}
-	}
-
+	long long ans = calc(r) - calc(l - 1);
 	cout << ans;
 
 	return 0;
