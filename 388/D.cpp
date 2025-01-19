@@ -5,17 +5,15 @@ int main()
 {
 	int n;
 	cin >> n;
-	int t[n],g[n];
+	int g[n];
 
-	memset(t, 0, sizeof(t));
 	memset(g, 0, sizeof(g));
 	for (int i = 0; i < n; i++)
 	{
 		int a;
 		cin >> a;
 
-		a += i;
-		a -= g[i];
+		a += i - g[i];
 
 		if (a >= n - i - 1)
 		{
