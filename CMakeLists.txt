@@ -13,7 +13,7 @@ project ("atcoder")
 
 # 包含子项目。
 
-set (SOURCE_DIR "${CMAKE_SOURCE_DIR}")
+set (SOURCE_DIR "${CMAKE_SOURCE_DIR}/src")
 file (GLOB ALL_ENTRIES "${SOURCE_DIR}/*")
 
 set(SUB_DIR "")
@@ -27,6 +27,6 @@ foreach(ENTRY ${ALL_ENTRIES})
 endforeach()
 
 foreach(PROJ ${SUB_DIR})
-	add_subdirectory("${PROJ}")
+	add_subdirectory("src/${PROJ}")
 endforeach()
 
