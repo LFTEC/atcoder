@@ -3,39 +3,46 @@ using namespace std;
 
 int main()
 {
-	map<int,int> l, r;
 	int n;
 	cin >> n;
-	int a[n];
-	int ansR = 0;
+	vector<int> a(n);
+	for (auto& e : a)
+	{
+		cin >> e;
+	}
+
+	vector<int> b(n+1, 0);
+
+	int suml[n], sumr[n];
+
+	int now = 0;
 	for (int i = 0; i < n; i++)
 	{
-		cin >> a[i];
-		if (!r[a[i]])
-			ansR++;
-		r[a[i]]++;
+		if (++b[a[i]] == 1)
+		{
+			now++;
+		}
+
+		suml[i] = now;
 	}
 
-	int ansL = 0;
-	int ans = 0;
-	for (int i = 1; i < n; i++)
+	now = 0;
+	b = vector<int>(n + 1, 0);
+	for (int i = n - 1; i>=0; i--)
 	{
-		if (l[a[i - 1]] == 0)
+		if (++b[a[i]] == 1)
 		{
-			ansL++;
+			now++;
 		}
-		if (r[a[i - 1]] == 1)
-		{
-			ansR--;
-		}
-
-		l[a[i - 1]]++;
-		r[a[i - 1]]--;
-
-		ans = max(ansL + ansR, ans);
+		sumr[i] = now;
 	}
 
-	cout << ans ;
-	
+	int ans = max(suml[n - 1], sumr[0]);
+	for (int i = 0; i < n - 1; i++)
+	{
+		ans = max(ans, suml[i] + sumr[i + 1]);
+	}
+
+	cout << ans;
 	return 0;
 }
